@@ -21,7 +21,7 @@ export default function LoginPage() {
       const result = await login(values.username, values.password);
 
       if (result.success) {
-        navigate("/contacts");
+        navigate("/contacts/new");
       } else {
         setError(result.message);
       }
@@ -56,19 +56,8 @@ export default function LoginPage() {
           size={8}
           style={{ width: "100%", marginBottom: 30 }}
         >
-          <Text
-            strong
-            style={{
-              color: "#1677ff",
-              fontSize: 13,
-              letterSpacing: 1.2,
-              textTransform: "uppercase",
-            }}
-          >
-            ContactApp
-          </Text>
           <Title level={2} style={{ margin: 0, letterSpacing: "-0.5px" }}>
-            Welcome back
+            Welcome!
           </Title>
           <Text type="secondary">Log in to manage your contacts.</Text>
         </Space>

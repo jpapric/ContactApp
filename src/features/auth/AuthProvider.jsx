@@ -9,8 +9,6 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = async (username, password) => {
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
     if (username === "user" && password === "password") {
       const mockUser = { username, role: "user", token: "mock-jwt-token-1234" };
 
