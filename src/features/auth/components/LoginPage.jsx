@@ -33,11 +33,10 @@ export default function LoginPage() {
   return (
     <main
       style={{
-        minHeight: "100vh",
+        minHeight: "90vh",
         boxSizing: "border-box",
         display: "grid",
         placeItems: "center",
-        padding: 16,
         background:
           "radial-gradient(ellipse at top left, #e6f4ff 0%, transparent 48%), linear-gradient(135deg, #f5f7fb 0%, #eef2f8 100%)",
       }}
