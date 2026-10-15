@@ -34,7 +34,6 @@ export default function LoginPage() {
     <main
       style={{
         minHeight: "90vh",
-        boxSizing: "border-box",
         display: "grid",
         placeItems: "center",
         background:

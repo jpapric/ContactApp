@@ -40,6 +40,14 @@ export default function Header() {
               Contacts
             </Typography.Title>
           </Link>
+          <Link
+            to="/contacts/new"
+            style={{ textDecoration: "none", padding: "12px 24px" }}
+          >
+            <Typography.Title level={4} style={{ margin: 0, color: "#1677ff" }}>
+              Add new
+            </Typography.Title>
+          </Link>
           <Button type="link" onClick={handleLogout}>
             <Typography.Title level={4} style={{ margin: 0, color: "#1677ff" }}>
               Logout
