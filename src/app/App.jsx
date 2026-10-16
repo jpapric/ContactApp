@@ -23,8 +23,8 @@ function App() {
               <Header />
               <Routes>
                 <Route path="/" element={<LoginPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route element={<ProtectedRoute />}>
-                  <Route path="/login" element={<LoginPage />} />
                   <Route path="/contacts/new" element={<NewContactPage />} />
                   <Route path="/contacts" element={<ContactListPage />} />
                   <Route

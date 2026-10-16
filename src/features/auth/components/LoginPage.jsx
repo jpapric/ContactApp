@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthProvider";
 import { Alert, Button, Card, Form, Input, Space, Typography } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
@@ -7,11 +7,15 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 const { Title, Text } = Typography;
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { user, login } = useAuth();
   const navigate = useNavigate();
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  if (user) {
+    return <Navigate to="/contacts" replace />;
+  }
 
   const handleSubmit = async (values) => {
     setError("");
