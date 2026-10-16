@@ -13,7 +13,7 @@ import {
 
 const { Title } = Typography;
 
-export default function NewContactForm({ onSubmit, error }) {
+export default function ContactForm({ onSubmit, error, initialValues = {} }) {
   const [form] = Form.useForm();
   const contactMethods = Form.useWatch("contactMethods", form) ?? [];
 
@@ -49,6 +49,7 @@ export default function NewContactForm({ onSubmit, error }) {
 
         <Form
           form={form}
+          initialValues={initialValues}
           onFinish={onSubmit}
           layout="vertical"
           requiredMark={false}

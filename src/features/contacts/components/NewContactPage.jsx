@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { App as AntdApp } from "antd";
-import NewContactForm from "./NewContactForm";
-import { createContact } from "../model/Contact";
-import { saveContact } from "../api/saveContact";
+import ContactForm from "./ContactForm";
+import { contact } from "../model/Contact";
+import { saveContact } from "../api/contactAPI";
 
 export default function NewContactPage() {
   const [error, setError] = useState("");
@@ -14,8 +14,8 @@ export default function NewContactPage() {
     setError("");
 
     try {
-      const contact = createContact(values);
-      saveContact(contact);
+      const newContact = contact(values);
+      saveContact(newContact);
 
       message.success("New contact saved successfully!");
       navigate(`/contacts/${contact.id}`);
@@ -24,5 +24,5 @@ export default function NewContactPage() {
     }
   };
 
-  return <NewContactForm onSubmit={handleSubmit} error={error} />;
+  return <ContactForm onSubmit={handleSubmit} error={error} />;
 }

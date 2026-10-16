@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("sim_user");
+    localStorage.removeItem("contacts");
     setUser(null);
   };
 
