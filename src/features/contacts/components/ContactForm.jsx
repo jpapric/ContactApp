@@ -10,10 +10,19 @@ import {
   Row,
   Col,
 } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 
-export default function ContactForm({ onSubmit, error, initialValues = {} }) {
+export default function ContactForm({
+  onSubmit,
+  error,
+  onBack,
+  showBack = true,
+  initialValues = {},
+  title = "Add new contact",
+  subtitle = "Enter the contact details below.",
+}) {
   const [form] = Form.useForm();
   const contactMethods = Form.useWatch("contactMethods", form) ?? [];
 
@@ -22,13 +31,31 @@ export default function ContactForm({ onSubmit, error, initialValues = {} }) {
       style={{
         minHeight: "100vh",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
-        alignItems: "flex-start",
+        alignItems: "center",
         padding: "40px 20px",
         background:
           "radial-gradient(ellipse at top left, #e6f4ff 0%, transparent 48%), linear-gradient(135deg, #f5f7fb 0%, #eef2f8 100%)",
       }}
     >
+      {showBack && (
+        <Button
+          type="text"
+          shape="circle"
+          icon={<ArrowLeftOutlined />}
+          aria-label="Back to contacts"
+          title="Back to contacts"
+          onClick={onBack}
+          style={{
+            position: "fixed",
+            top: 20,
+            left: 30,
+            zIndex: 1,
+            fontSize: "20px",
+          }}
+        />
+      )}
       <Card
         style={{
           width: "100%",
@@ -40,11 +67,9 @@ export default function ContactForm({ onSubmit, error, initialValues = {} }) {
       >
         <div style={{ marginBottom: 28 }}>
           <Title level={2} style={{ margin: 0, letterSpacing: "-0.5px" }}>
-            Add new contact
+            {title}
           </Title>
-          <Typography.Text type="secondary">
-            Enter the contact details below.
-          </Typography.Text>
+          <Typography.Text type="secondary">{subtitle}</Typography.Text>
         </div>
 
         <Form
@@ -196,7 +221,7 @@ export default function ContactForm({ onSubmit, error, initialValues = {} }) {
               marginBottom: 0,
             }}
           >
-            <Flex justify="center">
+            <Flex justify="center" gap={12}>
               <Button type="primary" htmlType="submit" style={{ width: 150 }}>
                 Save
               </Button>

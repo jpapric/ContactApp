@@ -1,4 +1,4 @@
-export function contact(values) {
+export function createContact(values) {
   return {
     id: crypto.randomUUID(),
     name: values.name.trim(),
