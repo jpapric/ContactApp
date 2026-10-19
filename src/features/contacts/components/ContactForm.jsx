@@ -9,8 +9,9 @@ import {
   Checkbox,
   Row,
   Col,
+  Popconfirm,
 } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
+import { ArrowLeftOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 
@@ -20,6 +21,7 @@ export default function ContactForm({
   onBack,
   showBack = true,
   initialValues = {},
+  onDelete,
   title = "Add new contact",
   subtitle = "Enter the contact details below.",
 }) {
@@ -221,7 +223,31 @@ export default function ContactForm({
               marginBottom: 0,
             }}
           >
-            <Flex justify="center" gap={12}>
+            <Flex
+              justify={onDelete ? "space-between" : "center"}
+              align="center"
+              gap={12}
+            >
+              {onDelete ? (
+                <Popconfirm
+                  title="Delete this contact"
+                  description="Are you sure you want to delete this contact?"
+                  okText="Delete"
+                  cancelText="Cancel"
+                  okButtonProps={{ danger: true }}
+                  onConfirm={onDelete}
+                >
+                  <Button
+                    danger
+                    type="text"
+                    icon={<DeleteOutlined />}
+                    aria-label="Delete contact"
+                    title="Delete contact"
+                  />
+                </Popconfirm>
+              ) : (
+                <span />
+              )}
               <Button type="primary" htmlType="submit" style={{ width: 150 }}>
                 Save
               </Button>

@@ -14,3 +14,14 @@ export function updateContact(updatedContact) {
 
   localStorage.setItem("contacts", JSON.stringify(updatedContacts));
 }
+
+export function deleteContact(contactId) {
+  const storedContacts = localStorage.getItem("contacts");
+  const contacts = storedContacts ? JSON.parse(storedContacts) : [];
+
+  const remainingContacts = contacts.filter(
+    (contact) => contact.id !== contactId,
+  );
+
+  localStorage.setItem("contacts", JSON.stringify(remainingContacts));
+}

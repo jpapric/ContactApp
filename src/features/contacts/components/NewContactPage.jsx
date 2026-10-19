@@ -18,7 +18,7 @@ export default function NewContactPage() {
       saveContact(contact);
 
       message.success("New contact saved successfully!");
-      navigate(`/contacts`);
+      navigate(`/contacts/${contact.id}`);
     } catch (cause) {
       setError("Unable to save new contact.");
     }
