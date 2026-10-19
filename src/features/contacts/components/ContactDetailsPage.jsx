@@ -10,6 +10,8 @@ export default function ContactDetails() {
   const [error, setError] = useState("");
   const { message } = AntdApp.useApp();
 
+  const [isEditing, setIsEditing] = useState(false);
+
   const storedContacts = localStorage.getItem("contacts");
   const contacts = storedContacts ? JSON.parse(storedContacts) : [];
   const existingContact = contacts.find((contact) => contact.id === contactId);
@@ -38,7 +40,8 @@ export default function ContactDetails() {
       };
 
       updateContact(updatedContact);
-      navigate("/contacts");
+      setIsEditing(false);
+      message.success("Contact updated successfully!");
     } catch {
       setError("Unable to update contacts");
     }
@@ -63,6 +66,15 @@ export default function ContactDetails() {
       onDelete={handleDelete}
       error={error}
       onBack={() => navigate("/contacts")}
+      onEdit={() => {
+        setError("");
+        setIsEditing(true);
+      }}
+      onCancel={() => {
+        setError("");
+        setIsEditing(false);
+      }}
+      isEditing={isEditing}
       title={"Contact details"}
       subtitle={"Edit the contact details below."}
     />

@@ -11,7 +11,11 @@ import {
   Col,
   Popconfirm,
 } from "antd";
-import { ArrowLeftOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  ArrowLeftOutlined,
+  DeleteOutlined,
+  EditOutlined,
+} from "@ant-design/icons";
 
 const { Title } = Typography;
 
@@ -22,11 +26,20 @@ export default function ContactForm({
   showBack = true,
   initialValues = {},
   onDelete,
+  onEdit,
+  isEditing = true,
+  onCancel,
   title = "Add new contact",
   subtitle = "Enter the contact details below.",
 }) {
   const [form] = Form.useForm();
   const contactMethods = Form.useWatch("contactMethods", form) ?? [];
+
+  const handleCancel = () => {
+    form.resetFields();
+    form.setFieldValue(initialValues);
+    onCancel?.();
+  };
 
   return (
     <main
@@ -93,7 +106,12 @@ export default function ContactForm({
               },
             ]}
           >
-            <Input placeholder="John" autoComplete="given-name" />
+            <Input
+              className="contact-details-input"
+              disabled={!isEditing}
+              placeholder="John"
+              autoComplete="given-name"
+            />
           </Form.Item>
           <Form.Item
             name="surname"
@@ -106,7 +124,12 @@ export default function ContactForm({
               },
             ]}
           >
-            <Input placeholder="Doe" autoComplete="family-name" />
+            <Input
+              className="contact-details-input"
+              disabled={!isEditing}
+              placeholder="Doe"
+              autoComplete="family-name"
+            />
           </Form.Item>
           <Form.Item
             name="address"
@@ -119,7 +142,12 @@ export default function ContactForm({
               },
             ]}
           >
-            <Input placeholder="Address 1" autoComplete="street-address" />
+            <Input
+              className="contact-details-input"
+              disabled={!isEditing}
+              placeholder="Address 1"
+              autoComplete="street-address"
+            />
           </Form.Item>
 
           <Form.Item
@@ -137,10 +165,22 @@ export default function ContactForm({
             <Checkbox.Group>
               <Row gutter={16}>
                 <Col>
-                  <Checkbox value="phone">Phone</Checkbox>
+                  <Checkbox
+                    className="contact-details-input"
+                    disabled={!isEditing}
+                    value="phone"
+                  >
+                    Phone
+                  </Checkbox>
                 </Col>
                 <Col>
-                  <Checkbox value="email">Email</Checkbox>
+                  <Checkbox
+                    className="contact-details-input"
+                    disabled={!isEditing}
+                    value="email"
+                  >
+                    Email
+                  </Checkbox>
                 </Col>
               </Row>
             </Checkbox.Group>
@@ -159,7 +199,12 @@ export default function ContactForm({
                 },
               ]}
             >
-              <Input placeholder="0973642813" autoComplete="phone-number" />
+              <Input
+                className="contact-details-input"
+                disabled={!isEditing}
+                placeholder="0973642813"
+                autoComplete="phone-number"
+              />
             </Form.Item>
           )}
 
@@ -181,6 +226,8 @@ export default function ContactForm({
               ]}
             >
               <Input
+                className="contact-details-input"
+                disabled={!isEditing}
                 placeholder="john.doe@gmail.com"
                 autoComplete="email-address"
               />
@@ -203,6 +250,8 @@ export default function ContactForm({
             ]}
           >
             <Input
+              className="contact-details-input"
+              disabled={!isEditing}
               inputMode="numeric"
               placeholder="123456789101"
               maxLength={11}
@@ -223,34 +272,54 @@ export default function ContactForm({
               marginBottom: 0,
             }}
           >
-            <Flex
-              justify={onDelete ? "space-between" : "center"}
-              align="center"
-              gap={12}
-            >
-              {onDelete ? (
-                <Popconfirm
-                  title="Delete this contact"
-                  description="Are you sure you want to delete this contact?"
-                  okText="Delete"
-                  cancelText="Cancel"
-                  okButtonProps={{ danger: true }}
-                  onConfirm={onDelete}
-                >
+            <Flex justify="center" align="center" gap={12}>
+              {isEditing ? (
+                <>
+                  {onCancel && (
+                    <Button htmlType="button" onClick={handleCancel}>
+                      Cancel
+                    </Button>
+                  )}
                   <Button
-                    danger
-                    type="text"
-                    icon={<DeleteOutlined />}
-                    aria-label="Delete contact"
-                    title="Delete contact"
-                  />
-                </Popconfirm>
+                    type="primary"
+                    htmlType="submit"
+                    style={{ width: 150 }}
+                  >
+                    Save
+                  </Button>
+                </>
               ) : (
-                <span />
+                <>
+                  {onDelete && (
+                    <Popconfirm
+                      title="Delete this contact"
+                      description="Are you sure you want to delete this contact?"
+                      okText="Delete"
+                      cancelText="Cancel"
+                      okButtonProps={{ danger: true }}
+                      onConfirm={onDelete}
+                    >
+                      <Button
+                        danger
+                        type="text"
+                        icon={<DeleteOutlined />}
+                        aria-label="Delete contact"
+                        title="Delete contact"
+                      />
+                    </Popconfirm>
+                  )}
+
+                  {onEdit && (
+                    <Button
+                      onClick={onEdit}
+                      type="text"
+                      icon={<EditOutlined />}
+                      aria-label="Edit contact"
+                      title="Edit contact"
+                    />
+                  )}
+                </>
               )}
-              <Button type="primary" htmlType="submit" style={{ width: 150 }}>
-                Save
-              </Button>
             </Flex>
           </Form.Item>
         </Form>

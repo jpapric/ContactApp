@@ -11,3 +11,13 @@ body,
 *::after {
   box-sizing: border-box;
 }
+
+.contact-details-input:disabled {
+  color: rgba(0, 0, 0, 0.88);
+  opacity: 1;
+  cursor: default;
+}
+
+.ant-checkbox-wrapper-disabled > span:last-child {
+  color: rgba(0, 0, 0, 0.88);
+}
