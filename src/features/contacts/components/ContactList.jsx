@@ -1,10 +1,10 @@
 import { Card, Typography, List, Empty, Button } from "antd";
 import { Link } from "react-router-dom";
+import { getContacts } from "../api/contactAPI";
 const { Title } = Typography;
 
 export default function ContactList() {
-  const storedContacts = localStorage.getItem("contacts");
-  const contacts = storedContacts ? JSON.parse(storedContacts) : [];
+  const contacts = getContacts();
 
   return contacts.length === 0 ? (
     <div style={{ padding: 48 }}>

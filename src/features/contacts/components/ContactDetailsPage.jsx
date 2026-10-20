@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ContactForm from "./ContactForm";
-import { deleteContact, updateContact } from "../api/contactAPI";
+import {
+  deleteContact,
+  getContactById,
+  updateContact,
+} from "../api/contactAPI";
 import { App as AntdApp } from "antd";
+import ContactNotFound from "../../../components/ContactNotFound";
+import { prepareContact } from "../model/Contact";
 
 export default function ContactDetails() {
   const { contactId } = useParams();
@@ -12,12 +18,10 @@ export default function ContactDetails() {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const storedContacts = localStorage.getItem("contacts");
-  const contacts = storedContacts ? JSON.parse(storedContacts) : [];
-  const existingContact = contacts.find((contact) => contact.id === contactId);
+  const existingContact = getContactById(contactId);
 
   if (!existingContact) {
-    return <h1>Contact not found</h1>;
+    return <ContactNotFound />;
   }
 
   const handleSubmit = (values) => {
@@ -26,17 +30,7 @@ export default function ContactDetails() {
     try {
       const updatedContact = {
         id: existingContact.id,
-        name: values.name.trim(),
-        surname: values.surname.trim(),
-        address: values.address.trim(),
-        contactMethods: values.contactMethods,
-        phone: values.contactMethods.includes("phone")
-          ? values.phone.trim()
-          : "",
-        email: values.contactMethods.includes("email")
-          ? values.email.trim()
-          : "",
-        oib: values.oib.trim(),
+        ...prepareContact(values),
       };
 
       updateContact(updatedContact);

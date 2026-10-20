@@ -37,7 +37,6 @@ export default function ContactForm({
 
   const handleCancel = () => {
     form.resetFields();
-    form.setFieldValue(initialValues);
     onCancel?.();
   };
 
@@ -253,7 +252,7 @@ export default function ContactForm({
               className="contact-details-input"
               disabled={!isEditing}
               inputMode="numeric"
-              placeholder="123456789101"
+              placeholder="12345678910"
               maxLength={11}
             />
           </Form.Item>

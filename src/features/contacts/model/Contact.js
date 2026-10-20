@@ -1,6 +1,5 @@
-export function createContact(values) {
+export function prepareContact(values) {
   return {
-    id: crypto.randomUUID(),
     name: values.name.trim(),
     surname: values.surname.trim(),
     address: values.address.trim(),
@@ -8,5 +7,12 @@ export function createContact(values) {
     phone: values.contactMethods.includes("phone") ? values.phone.trim() : "",
     email: values.contactMethods.includes("email") ? values.email.trim() : "",
     oib: values.oib.trim(),
+  };
+}
+
+export function createContact(values) {
+  return {
+    id: crypto.randomUUID(),
+    ...prepareContact(values),
   };
 }

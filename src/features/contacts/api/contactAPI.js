@@ -25,3 +25,16 @@ export function deleteContact(contactId) {
 
   localStorage.setItem("contacts", JSON.stringify(remainingContacts));
 }
+
+export function getContacts() {
+  const storedContacts = localStorage.getItem("contacts");
+  const contacts = storedContacts ? JSON.parse(storedContacts) : [];
+  return contacts;
+}
+
+export function getContactById(contactId) {
+  const storedContacts = localStorage.getItem("contacts");
+  const contacts = storedContacts ? JSON.parse(storedContacts) : [];
+  const contact = contacts.find((contact) => contact.id === contactId);
+  return contact;
+}
